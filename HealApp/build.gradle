@@ -1,0 +1,204 @@
+/*
+ *    Calendula - An assistant for personal medication management.
+ *    Copyright (C) 2016 CITIUS - USC
+ *
+ *    Calendula is free software; you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation; either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+apply plugin: 'com.android.application'
+apply plugin: 'idea'
+
+
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url 'https://jitpack.io' }
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+// read keystore for app signing
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = null
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmmss')
+    return formattedDate
+}
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 30
+        versionName "2.4.1"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties != null ? keystoreProperties['keyAlias'] : null
+            keyPassword keystoreProperties != null ? keystoreProperties['keyPassword'] : null
+            storeFile keystoreProperties != null ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties != null ? keystoreProperties['storePassword'] : null
+        }
+    }
+
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.txt'
+        }
+        beta {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.txt'
+            versionNameSuffix "-build" + getDate()
+        }
+    }
+    productFlavors {}
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(output.outputFile.parent,
+                    output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
+        }
+    }
+    compileOptions.incremental = false
+}
+
+dependencies {
+
+    compile 'com.google.code.gson:gson'
+
+    // support
+    
+
+    // round image view
+    
+    // Time and date handling
+    
+    // Floating action button
+    
+    // calendar view
+    
+    // Tab strip
+    //compile 'com.ogaclejapan.smarttablayout:library:1.1.0@aar'
+    
+    // Event bus
+    
+    // qr scanning
+    
+    // ormlite
+    
+    // testing
+    
+    
+    // google rfc 2445
+    compile files('libs/rfc2445.jar')
+    compile files('libs/mpandroidchartlibrary-2-2-4.jar')
+
+    compile('com.mikepenz:materialdrawer:4.4.1@aar') {
+        transitive = true
+    }
+    compile('com.mikepenz:materialize:0.2.7@aar') {
+        transitive = true
+    }
+    compile('com.mikepenz:aboutlibraries:5.2.5@aar') {
+        transitive = true
+    }
+
+    //
+    
+    // html parsing
+    
+    // jobs
+    // gif drawable
+    // material dialogs
+
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    compile 'com.jjoe64:graphview:4.2.1'
+    compile 'com.nispok:snackbar:2.9.0'
+    compile 'com.doomonafireball.betterpickers:library:1.5.5'
+    compile 'com.github.filippudak.progresspieview:library:1.0.+'
+    compile 'com.github.amlcurran.showcaseview:library:5.0.0'
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:cardview-v7:26.+'
+    compile 'com.android.support:recyclerview-v7:26.+'
+    compile 'com.android.support:palette-v7:26.+'
+    compile 'com.android.support:support-v4:26.+'
+    compile 'com.android.support:design:26.+'
+    compile 'com.makeramen:roundedimageview:1.5.0'
+    compile 'joda-time:joda-time:2.3'
+    compile 'com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.1.0'
+    compile 'com.ocpsoft:ocpsoft-pretty-time:1.0.7'
+    compile 'com.melnykov:floatingactionbutton:1.1.0'
+    compile 'com.squareup:android-times-square:1.6.4@aar'
+    compile 'com.roomorama:caldroid:3.0.1'
+    compile 'com.github.sundeepk:compact-calendar-view:1.8.4'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile 'de.greenrobot:eventbus:2.2.1'
+    compile 'com.journeyapps:zxing-android-embedded:2.0.1@aar'
+    compile 'com.journeyapps:zxing-android-integration:2.0.1@aar'
+    compile 'com.google.zxing:core:3.0.1'
+    compile 'com.j256.ormlite:ormlite-android:4.45'
+    compile 'com.getbase:floatingactionbutton:1.9.0'
+    compile 'com.mikepenz:iconics-core:2.1.0@aar'
+    compile 'com.mikepenz:google-material-typeface:2.1.2.1@aar'
+    compile 'com.mikepenz:community-material-typeface:1.2.65.1@aar'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.heinrichreimersoftware:material-intro:1.5.8'
+    compile 'org.jsoup:jsoup:1.7.2'
+    compile 'com.evernote:android-job:1.1.3'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
+    compile 'com.github.javiersantos:MaterialStyledDialogs:2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.9.5'
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
+}

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~    Calendula - An assistant for personal medication management.
+  ~    Copyright (C) 2016 CITIUS - USC
+  ~
+  ~    Calendula is free software; you can redistribute it and/or modify
+  ~    it under the terms of the GNU General Public License as published by
+  ~    the Free Software Foundation; either version 3 of the License, or
+  ~    (at your option) any later version.
+  ~
+  ~    This program is distributed in the hope that it will be useful,
+  ~    but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~    GNU General Public License for more details.
+  ~
+  ~    You should have received a copy of the GNU General Public License
+  ~    along with this software.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:padding="2dp"
+        android:paddingBottom="26dp">
+
+        <TextView
+            android:id="@+id/new_schedules_title"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:paddingRight="26dp"
+            android:text="1 schedules will be created"
+            android:textColor="#222"
+            android:textSize="20sp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="26dp"
+            android:layout_toEndOf="@+id/imageView7"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical|left" />
+
+        <LinearLayout
+            android:id="@+id/new_schedules"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/new_schedules_title"
+            android:layout_marginLeft="65dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/updated_schedules_title"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/new_schedules"
+            android:layout_marginTop="26dp"
+            android:paddingRight="26dp"
+            android:text="2 schedules will be updated"
+            android:textColor="#222"
+            android:textSize="20sp"
+            android:layout_alignLeft="@+id/new_schedules_title"
+            android:layout_alignStart="@+id/new_schedules_title"
+            android:gravity="center_vertical|left" />
+
+        <LinearLayout
+            android:id="@+id/updated_schedules"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/updated_schedules_title"
+            android:layout_marginLeft="65dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:layout_marginBottom="26dp">
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:id="@+id/imageView7"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="26dp"
+            android:src="@drawable/ic_done_black_48dp"
+            android:padding="2dp" />
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:id="@+id/imageView8"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="26dp"
+            android:src="@drawable/ic_edit_black_48dp"
+            android:layout_below="@+id/new_schedules"
+            android:padding="4dp" />
+
+
+
+    </RelativeLayout>
+</ScrollView>
